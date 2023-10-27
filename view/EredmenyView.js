@@ -40,7 +40,12 @@ export default class EredmenyView {
     }
 
     statusz(szoveg) {
-        this.#statusz.html(szoveg);
+        if (szoveg) {
+            this.#statusz.html(`<div class="alert alert-danger">${szoveg}</div>`);
+        } else {
+            this.#statusz.html("");
+        }
+
     }
 
     ervenytelenit() {

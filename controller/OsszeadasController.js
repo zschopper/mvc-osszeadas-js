@@ -5,6 +5,7 @@ export default class OsszeadasController {
     #viewEredmeny
     #modelSzam1
     #modelSzam2
+    #statusz = { 1: "", 2: "" };
 
     constructor(szuloElem) {
         this.#viewEredmeny = new EredmenyView(szuloElem);
@@ -12,28 +13,50 @@ export default class OsszeadasController {
         this.#modelSzam2 = new SzamModel(this.#viewEredmeny.getSzam2());
 
         $(window).on("szam1Valtozas", (event) => {
-            this.#modelSzam1.setSzaM(event.detail.getSzam1());
-            let view = event.detail
-            view.ervenytelenit();
-            console.log("Szám1 változott:", event.detail.getSzam1());
+            this.szamvaltozas(this.#modelSzam1, event.detail.getSzam1(), 1)
         })
 
         $(window).on("szam2Valtozas", (event) => {
-            this.#modelSzam2.setSzaM(event.detail.getSzam2());
-            let view = event.detail
-            view.ervenytelenit();
-            console.log("Szám2 változott:", event.detail.getSzam2());
+            this.szamvaltozas(this.#modelSzam2, event.detail.getSzam2(), 2)
         })
 
         $(window).on("szamolas", (event) => {
-            let view = event.detail
+            // újra ellenőriztetjük a számokat
+            this.szamvaltozas(this.#modelSzam1, this.#viewEredmeny.getSzam1(), 1);
+            this.szamvaltozas(this.#modelSzam2, this.#viewEredmeny.getSzam2(), 2);
 
-            let szam1 = this.#modelSzam1.getSzam();
-            let szam2 = this.#modelSzam2.getSzam();
-            let eredmeny = szam1 + szam2;
-            console.log("Számolás:", szam1, szam2);
+            let hibaUzenet = this.hibak().join("<br>");
+            if (hibaUzenet) {
+                this.#viewEredmeny.statusz(hibaUzenet);
+            }else {
+                let szam1 = this.#modelSzam1.getSzam();
+                let szam2 = this.#modelSzam2.getSzam();
 
-            view.eredmeny(eredmeny);
+                let eredmeny = szam1 + szam2;
+                // console.log("Számolás:", szam1, szam2);
+
+                this.#viewEredmeny.eredmeny(eredmeny);
+            }
         })
+    }
+
+    szamvaltozas(model, szam, idx) {
+        model.setSzaM(szam);
+        if (isNaN(szam)) {
+            this.#statusz[idx] = `A(z) ${idx}. szám érvénytelen!`;
+        } else {
+            this.#statusz[idx] = "";
+        }
+        let hibaUzenet = this.hibak().join("<br>");
+        if (hibaUzenet) {
+            this.#viewEredmeny.statusz(hibaUzenet);
+        } else {
+            this.#viewEredmeny.ervenytelenit();
+        }
+        // console.log(idx, "szám változott:", szam);
+    }
+
+    hibak() {
+        return Object.values(this.#statusz).filter((elem) => (elem.length));
     }
 }

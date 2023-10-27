@@ -25,7 +25,9 @@ body {
 }
 
 .statusz {
+    margin-top: 10px;
     font-style: italic;
+    font-weight: 600;
     font-size: 95%;
 }
 
