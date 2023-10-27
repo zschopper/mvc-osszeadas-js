@@ -1,12 +1,15 @@
-html, body {
+html,
+body {
     height: 95%;
     padding: 0;
     margin: 0;
     border: 0;
-  }
+}
 
 body {
     background-image: url("https://www.shutterstock.com/shutterstock/photos/705312742/display_1500/stock-vector-math-symbols-in-pastel-colors-705312742.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .tartalom {
