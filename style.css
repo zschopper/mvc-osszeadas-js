@@ -1,0 +1,38 @@
+html, body {
+    height: 95%;
+    padding: 0;
+    margin: 0;
+    border: 0;
+  }
+
+body {
+    background-image: url("https://www.shutterstock.com/shutterstock/photos/705312742/display_1500/stock-vector-math-symbols-in-pastel-colors-705312742.jpg");
+}
+
+.tartalom {
+    background-color: ivory;
+    height: 350px;
+    max-width: 960px;
+    margin: 50px auto;
+    border: 2px solid #e5e5da;
+    padding: 20px;
+}
+
+.muvelet {
+    font-weight: bold;
+    font-size: 120%;
+    text-align: center;
+}
+
+.statusz {
+    font-style: italic;
+    font-size: 95%;
+}
+
+.eredmeny {
+    text-align: center;
+    font-size: 150%;
+    font-weight: bold;
+    color: #5f5f52;
+    padding: 20px;
+}
