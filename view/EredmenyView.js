@@ -39,9 +39,9 @@ export default class EredmenyView {
         window.dispatchEvent(new CustomEvent(esemenynev, {detail:this}));
     }
 
-    statusz(szoveg) {
+    statusz(szoveg, type="danger") {
         if (szoveg) {
-            this.#statusz.html(`<div class="alert alert-danger">${szoveg}</div>`);
+            this.#statusz.html(`<div class="alert alert-${type}">${szoveg}</div>`);
         } else {
             this.#statusz.html("");
         }
@@ -49,7 +49,7 @@ export default class EredmenyView {
     }
 
     ervenytelenit() {
-        this.statusz("Az új számok összegzéséhez kattints a gombra!");
+        this.statusz("Az új számok összegzéséhez kattints a gombra!", "info");
         this.eredmeny("");
     }
 
